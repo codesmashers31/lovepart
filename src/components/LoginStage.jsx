@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import GlassCard from './GlassCard';
 import MagicButton from './MagicButton';
 
-import img1 from '../assets/images/1.jpeg';
+import img1 from '../assets/images/15.jpeg';
 
 const LoginStage = ({ onComplete }) => {
     const [yourName, setYourName] = useState('');

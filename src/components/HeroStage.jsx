@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import MagicButton from './MagicButton';
 import GlassCard from './GlassCard';
 
-import img1 from '../assets/images/1.jpeg';
+import img1 from '../assets/images/11.jpeg';
 
 const HeroStage = ({ onStart }) => {
     return (

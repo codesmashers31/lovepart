@@ -83,7 +83,7 @@ const JourneyStage = ({ onComplete }) => {
             {/* Faded Background */}
             <div
                 className="absolute inset-0 z-0 opacity-20 bg-cover bg-center pointer-events-none blur-[2px]"
-                style={{ backgroundImage: `url(${img10})` }}
+                style={{ backgroundImage: `url(${img12})` }}
             />
 
             <motion.div
