@@ -34,34 +34,34 @@ import img28 from '../assets/images/28.jpeg';
 
 // Organizing all images into a single array with captions
 const allImages = [
-    { id: 1, img: img1, title: "The Beginning", sub: "Where it all started" },
-    { id: 2, img: img2, title: "Adventures", sub: "Exploring together" },
-    { id: 3, img: img3, title: "Laughter", sub: "Joy in every moment" },
-    { id: 4, img: img4, title: "Friendship", sub: "My best friend" },
-    { id: 5, img: img5, title: "First Trip", sub: "Unforgettable memories" },
-    { id: 6, img: img6, title: "Celebrations", sub: "Cheers to us" },
-    { id: 7, img: img7, title: "Smiles", sub: "Your smile lights up my world" },
-    { id: 8, img: img8, title: "Together", sub: "Side by side" },
-    { id: 9, img: img9, title: "Growth", sub: "Growing stronger" },
-    { id: 10, img: img10, title: "Dreaming", sub: "Future plans" },
-    { id: 11, img: img11, title: "Love", sub: "Pure and true" },
-    { id: 12, img: img12, title: "Support", sub: "Always there" },
-    { id: 13, img: img13, title: "Magic", sub: "Life is magical with you" },
-    { id: 14, img: img14, title: "Holidays", sub: "Festive fun" },
-    { id: 15, img: img15, title: "Engagement", sub: "The promise" },
-    { id: 16, img: img16, title: "Wedding Day", sub: "Forever begins" },
-    { id: 17, img: img17, title: "Just Married", sub: "Blissful days" },
-    { id: 18, img: img18, title: "Honeymoon", sub: "Paradise" },
-    { id: 19, img: img19, title: "Building Home", sub: "Our sanctuary" },
-    { id: 20, img: img20, title: "Anniversary 1", sub: "Reviewing year one" },
-    { id: 21, img: img21, title: "Pregnancy", sub: "Expecting a miracle" },
-    { id: 22, img: img22, title: "Maternity", sub: "Glowing mama" },
-    { id: 23, img: img23, title: "Baby Arrives", sub: "Welcome little one" },
-    { id: 24, img: img24, title: "Family of 3", sub: "Circle completes" },
-    { id: 25, img: img25, title: "Baby Smiles", sub: "Pure innocence" },
-    { id: 26, img: img26, title: "First Steps", sub: "Milestones" },
-    { id: 27, img: img27, title: "2nd Anniversary", sub: "Stronger than ever" },
-    { id: 28, img: img28, title: "Forever", sub: "To infinity and beyond" }
+    { id: 1, img: img1, quote: "The day our souls first met", sub: "Where it all started" },
+    { id: 2, img: img2, quote: "Every journey is better by your side", sub: "Exploring together" },
+    { id: 3, img: img3, quote: "Your laughter is the rhythm of my heart", sub: "Joy in every moment" },
+    { id: 4, img: img4, quote: "The best part of my day is you", sub: "My best friend" },
+    { id: 5, img: img5, quote: "First of many miles in our map of love", sub: "Unforgettable memories" },
+    { id: 6, img: img6, quote: "Cheers to the love that keeps us young", sub: "Cheers to us" },
+    { id: 7, img: img7, quote: "Your smile is my favorite view", sub: "Your smile lights up my world" },
+    { id: 8, img: img8, quote: "Two hearts beating as one", sub: "Side by side" },
+    { id: 9, img: img9, quote: "Growing stronger with every season", sub: "Growing stronger" },
+    { id: 10, img: img10, quote: "Dreaming of forever, starting today", sub: "Future plans" },
+    { id: 11, img: img11, quote: "I love you more than words can hold", sub: "Pure and true" },
+    { id: 12, img: img12, quote: "My rock, my home, my everything", sub: "Always there" },
+    { id: 13, img: img13, quote: "Life is simple magic when you're near", sub: "Life is magical with you" },
+    { id: 14, img: img14, quote: "Warmest memories in the coldest times", sub: "Festive fun" },
+    { id: 15, img: img15, quote: "The promise that changed my life", sub: "The promise" },
+    { id: 16, img: img16, quote: "And so, forever begins", sub: "Forever begins" },
+    { id: 17, img: img17, quote: "The start of our greatest adventure yet", sub: "Blissful days" },
+    { id: 18, img: img18, quote: "Lost in love, found in each other", sub: "Paradise" },
+    { id: 19, img: img19, quote: "Building our sanctuary of peace", sub: "Our sanctuary" },
+    { id: 20, img: img20, quote: "365 days of choosing you again", sub: "Reviewing year one" },
+    { id: 21, img: img21, quote: "A tiny heartbeat, a massive love", sub: "Expecting a miracle" },
+    { id: 22, img: img22, quote: "You carry the future in your light", sub: "Glowing mama" },
+    { id: 23, img: img23, quote: "A new song begins in our family", sub: "Welcome little one" },
+    { id: 24, img: img24, quote: "Our circle is finally complete", sub: "Circle completes" },
+    { id: 25, img: img25, quote: "Parenthood is our most beautiful journey", sub: "Pure innocence" },
+    { id: 26, img: img26, quote: "Every milestone is a gift with you", sub: "Milestones" },
+    { id: 27, img: img27, quote: "Two years down, a lifetime to go", sub: "Stronger than ever" },
+    { id: 28, img: img28, quote: "To infinity and beyond, my love", sub: "To infinity and beyond" }
 ];
 
 const TimelineItem = ({ data, index }) => {
@@ -88,12 +88,12 @@ const TimelineItem = ({ data, index }) => {
                         <div className="absolute inset-0 bg-rose-500/10 group-hover:bg-transparent transition-colors z-10" />
                         <img
                             src={data.img}
-                            alt={data.title}
+                            alt={data.quote}
                             loading="lazy"
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
                     </div>
-                    <p className="text-white font-bold text-lg mb-1">{data.id}. {data.title}</p>
+                    <p className="text-white font-bold text-lg mb-1 leading-tight">"{data.quote}"</p>
                     <p className="text-rose-200/80 font-handwriting text-sm italic">{data.sub}</p>
                 </div>
             </div>
@@ -119,14 +119,23 @@ const StageTimeline = ({ onComplete }) => {
 
     return (
         <div ref={ref} className="min-h-screen py-20 px-4 relative overflow-hidden bg-[#0f0518]">
-            <div className="text-center mb-16 relative z-10 pt-10">
-                <h2 className="text-3xl md:text-5xl font-display text-transparent bg-clip-text bg-gradient-to-r from-rose-300 to-purple-300 drop-shadow-lg mb-4">
-                    10 Years of Togetherness 💖
-                </h2>
-                <div className="flex flex-col gap-2 justify-center text-sm text-white/70">
-                    <span className="font-bold text-lg">8 Years of Love + 2 Years of Marriage</span>
-                    <span className="text-xs opacity-80">(From Friendship to Family)</span>
-                </div>
+            <div className="text-center mb-16 relative z-10 pt-10 px-6">
+                <motion.h2
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    className="text-3xl md:text-5xl font-display text-transparent bg-clip-text bg-gradient-to-r from-rose-300 to-purple-300 drop-shadow-lg mb-6"
+                >
+                    "In all the world, there is no heart for me like yours." 💖
+                </motion.h2>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="flex flex-col gap-4 justify-center text-white/80 italic font-handwriting"
+                >
+                    <span className="text-xl md:text-2xl">"Ten years of laughter, eight years of love, and a lifetime still to go."</span>
+                    <span className="text-sm opacity-60 tracking-widest uppercase">Our Eternal Story</span>
+                </motion.div>
             </div>
 
             {/* Thread Line */}

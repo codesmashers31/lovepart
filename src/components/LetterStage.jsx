@@ -81,7 +81,7 @@ const LetterStage = ({ onComplete }) => {
                                 <TextType
                                     text={fullText}
                                     typingSpeed={30}
-                                    startDelay={500}
+                                    initialDelay={500}
                                     showCursor={false}
                                 />
                             </div>

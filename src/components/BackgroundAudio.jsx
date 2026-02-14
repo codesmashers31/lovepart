@@ -4,13 +4,13 @@ import { Volume2, VolumeX } from 'lucide-react';
 const STAGE_SONGS = {
     0: 'LoPf32nKYb8', // Hero (Requested)
     1: 'LoPf32nKYb8', // Login (Keep playing Hero song)
-    2: 'dImiR3Sr8Wo', // Quiz (Kadhale Kadhale - Konjam)
-    3: 'dImiR3Sr8Wo', // Journey (Kadhale Kadhale - Konjam) - Continued vibe
+    2: 'dvWdFMCC1-I', // Quiz (Kadhale Kadhale - Konjam)
+    3: 'dvWdFMCC1-I', // Journey (Kadhale Kadhale - Konjam) - Continued vibe
     4: 'U3vO8o58wKQ', // Trap (Maruvarthai)
-    5: 'QxddU3sjVRY', // Letter (Nenjukkul Peidhidum)
-    6: 'keLNtr58yro', // Timeline (Unakaga Varuven - Requested for Timeline/Roadmap)
-    7: 'poUq5mXCKmA', // Memory (River Flows in You)
-    8: 'LoPf32nKYb8', // Final (Requested - Reprise)
+    5: 'sWT7S6T0Qzw', // Letter (Nenjukkul Peidhidum)
+    6: 'ZRgA-1za8SA', // Timeline (Updated)
+    7: '7h4FhEePjuU', // Memory (Updated)
+    8: 'XHi7UpUctWA', // Final (Requested: https://youtu.be/XHi7UpUctWA)
 };
 
 const BackgroundAudio = ({ isPlaying, stage }) => {
