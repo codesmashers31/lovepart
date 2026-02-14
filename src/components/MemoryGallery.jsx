@@ -5,13 +5,20 @@ import ImageCard from './ImageCard';
 import MagicButton from './MagicButton';
 import { X } from 'lucide-react';
 
+import img1 from '../assets/images/1.jpeg';
+import img2 from '../assets/images/2.jpeg';
+import img3 from '../assets/images/3.jpeg';
+import img4 from '../assets/images/4.jpeg';
+import img5 from '../assets/images/5.jpeg';
+import img6 from '../assets/images/6.jpeg';
+
 const photos = [
-    { id: 1, src: "https://picsum.photos/id/1011/400/600", caption: "Our First Kayak Trip" },
-    { id: 2, src: "https://picsum.photos/id/1015/400/400", caption: "Mountain Sunset" },
-    { id: 3, src: "https://picsum.photos/id/1025/400/500", caption: "Cozy Winter" },
-    { id: 4, src: "https://picsum.photos/id/1027/400/400", caption: "Walking in the Park" },
-    { id: 5, src: "https://picsum.photos/id/1035/400/600", caption: "Waterfall Hike" },
-    { id: 6, src: "https://picsum.photos/id/1040/400/400", caption: "Castle Visit" },
+    { id: 1, src: img1, caption: "Our First Kayak Trip" },
+    { id: 2, src: img2, caption: "Mountain Sunset" },
+    { id: 3, src: img3, caption: "Cozy Winter" },
+    { id: 4, src: img4, caption: "Walking in the Park" },
+    { id: 5, src: img5, caption: "Waterfall Hike" },
+    { id: 6, src: img6, caption: "Castle Visit" },
 ];
 
 const MemoryGallery = ({ onComplete }) => {

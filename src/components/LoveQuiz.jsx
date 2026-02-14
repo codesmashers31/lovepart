@@ -7,14 +7,14 @@ const questions = [
     {
         id: 1,
         text: "How many beautiful years have we spent together?",
-        options: ["2 Years", "10 Years", "12 Years of Magic ✨"],
-        correct: "12 Years of Magic ✨"
+        options: ["8 Years", "2 Years", "10 Years (8 Love + 2 Marriage) ✨"],
+        correct: "10 Years (8 Love + 2 Marriage) ✨"
     },
     {
         id: 2,
-        text: "What makes our love story special?",
-        options: ["Our Friendship", "Our 2 Years of Marriage", "Everything + Our Baby 👶"],
-        correct: "Everything + Our Baby 👶"
+        text: "What makes our 10-year journey special?",
+        options: ["8 Years of Love", "2 Years of Marriage", "8 Years Love + 2 Years Marriage = 10 Years 💑"],
+        correct: "8 Years Love + 2 Years Marriage = 10 Years 💑"
     },
     {
         id: 3,

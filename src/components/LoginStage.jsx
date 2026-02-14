@@ -23,7 +23,7 @@ const LoginStage = ({ onComplete }) => {
             {!isSubmitted ? (
                 <GlassCard className="max-w-md w-full p-8 md:p-10 text-center">
                     <h1 className="text-3xl md:text-5xl font-display text-rose-100 mb-6 drop-shadow-md">
-                        10 Years of Love & 2 Years of Marriage ❤️
+                        8 Years of Love + 2 Years of Marriage ❤️
                     </h1>
                     <p className="text-white/70 mb-8 text-lg font-light">
                         Celebrating our beautiful journey together.

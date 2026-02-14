@@ -331,11 +331,22 @@ class App {
         });
     }
     createMedias(items, bend = 1, textColor, borderRadius, font) {
-        // Use items strictly, no random placeholders
-        const galleryItems = items && items.length ? items : [];
-        if (galleryItems.length === 0) return;
-
-        this.mediasImages = galleryItems.concat(galleryItems); // Duplicate for infinite scroll loop effect,
+        const defaultItems = [
+            { image: `https://picsum.photos/seed/1/800/600?grayscale`, text: 'Bridge' },
+            { image: `https://picsum.photos/seed/2/800/600?grayscale`, text: 'Desk Setup' },
+            { image: `https://picsum.photos/seed/3/800/600?grayscale`, text: 'Waterfall' },
+            { image: `https://picsum.photos/seed/4/800/600?grayscale`, text: 'Strawberries' },
+            { image: `https://picsum.photos/seed/5/800/600?grayscale`, text: 'Deep Diving' },
+            { image: `https://picsum.photos/seed/16/800/600?grayscale`, text: 'Train Track' },
+            { image: `https://picsum.photos/seed/17/800/600?grayscale`, text: 'Santorini' },
+            { image: `https://picsum.photos/seed/8/800/600?grayscale`, text: 'Blurry Lights' },
+            { image: `https://picsum.photos/seed/9/800/600?grayscale`, text: 'New York' },
+            { image: `https://picsum.photos/seed/10/800/600?grayscale`, text: 'Good Boy' },
+            { image: `https://picsum.photos/seed/21/800/600?grayscale`, text: 'Coastline' },
+            { image: `https://picsum.photos/seed/12/800/600?grayscale`, text: 'Palm Trees' }
+        ];
+        const galleryItems = items && items.length ? items : defaultItems;
+        this.mediasImages = galleryItems.concat(galleryItems);
         this.medias = this.mediasImages.map((data, index) => {
             return new Media({
                 geometry: this.planeGeometry,
@@ -437,12 +448,7 @@ class App {
         window.removeEventListener('touchmove', this.boundOnTouchMove);
         window.removeEventListener('touchend', this.boundOnTouchUp);
         if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
-            // Ensure we don't assume parentNode exists or is valid
-            try {
-                this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
-            } catch (e) {
-                // Warning or ignore
-            }
+            this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
         }
     }
 }
@@ -458,7 +464,6 @@ export default function CircularGallery({
 }) {
     const containerRef = useRef(null);
     useEffect(() => {
-        if (!containerRef.current) return;
         const app = new App(containerRef.current, { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase });
         return () => {
             app.destroy();

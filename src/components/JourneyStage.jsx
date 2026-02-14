@@ -99,9 +99,11 @@ const JourneyStage = ({ onComplete }) => {
                 className="w-full h-[70vh] relative z-10 overflow-hidden rounded-xl border border-white/10 bg-black/20 backdrop-blur-sm"
             >
                 {/* Passing just the image URLs array to ImageTrail */}
-                <ImageTrail
-                    items={galleryItems.map(item => item.image.src)}
-                    variant={3} // Using a nice floaty variant (3 or 5 are good)
+                <CircularGallery
+                    items={galleryItems}
+                    bend={3}
+                    textColor="#ffffff"
+                    borderRadius={0.05}
                 />
             </motion.div>
 

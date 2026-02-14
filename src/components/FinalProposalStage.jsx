@@ -4,12 +4,16 @@ import GlassCard from './GlassCard';
 import MagicButton from './MagicButton';
 import RunningButton from './RunningButton';
 import confetti from 'canvas-confetti';
+import { playFireworks, playSuccess } from '../utils/SoundEffects';
 
 const FinalProposalStage = ({ onRestart, userNames }) => {
     const [accepted, setAccepted] = useState(false);
 
     const handleAccept = () => {
         setAccepted(true);
+        playSuccess();
+        playFireworks();
+
         // Huge Heart Rain
         const duration = 15 * 1000;
         const animationEnd = Date.now() + duration;
@@ -45,7 +49,9 @@ const FinalProposalStage = ({ onRestart, userNames }) => {
                         To My Mutinchanthum & Our Little World 🌍
                     </motion.h1>
                     <p className="text-rose-200/80 text-lg mb-10 font-handwriting">
-                        10 Years of Love. 2 Years of Marriage. And a lifetime of happiness with our baby.
+                        8 Years of Love. 2 Years of Marriage. <br />
+                        10 Years of Us. <br />
+                        And a lifetime of happiness with our baby.
                         <br />
                         Will you keep making my life magical forever?
                     </p>
