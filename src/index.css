@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --color-romantic-rose: #fb7185;
+  --color-romantic-violet: #8b5cf6;
+  --color-romantic-dark: #1e1b4b;
+  --color-love-red: #e11d48;
+  --font-display: "Dancing Script", cursive;
+  --font-body: "Inter", sans-serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-heartbeat: heartbeat 1.5s ease-in-out infinite;
+  --animate-sparkle: sparkle 2s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes heartbeat {
+
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes sparkle {
+
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.5;
+      transform: scale(0.8);
+    }
+  }
+}
+
+/* Global Styles */
+body {
+  @apply bg-gray-900 text-white overflow-x-hidden;
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 50%, #be123c 100%);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  @apply backdrop-blur-md bg-white/10 border border-white/20 shadow-xl rounded-3xl;
+}
+
+.glass-button {
+  @apply backdrop-blur-sm bg-white/20 border border-white/30 shadow-lg rounded-full hover:bg-white/30 transition-all duration-300 ease-out active:scale-95;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/20 rounded-full hover:bg-white/40;
+}
