@@ -16,12 +16,33 @@ import { playPop, playMagic } from './utils/SoundEffects';
 function App() {
   const [stage, setStage] = useState(0); // Start at Hero (Stage 0)
   const [userNames, setUserNames] = useState({ yourName: '', partnerName: '' });
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const nextStage = () => {
-    playPop();
-    setStage((curr) => curr + 1);
+    if (stage === 6) {
+      // Specialized transition for the gallery
+      setIsTransitioning(true);
+      playMagic();
+      setTimeout(() => {
+        setStage(7);
+        setIsTransitioning(false);
+      }, 2500);
+    } else if (stage === 2) {
+      // Transition for the Journey (Circular Gallery)
+      setIsTransitioning(true);
+      playMagic();
+      setTimeout(() => {
+        setStage(3);
+        setIsTransitioning(false);
+      }, 2000);
+    } else {
+      playPop();
+      setStage((curr) => curr + 1);
+    }
   };
+
   const restart = () => {
     playMagic();
     setStage(1);
@@ -39,6 +60,29 @@ function App() {
   };
 
   const renderStage = () => {
+    if (isTransitioning) {
+      return (
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: [0.8, 1.2, 1], opacity: 1 }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+            className="text-8xl mb-6 drop-shadow-[0_0_30px_rgba(244,63,94,0.5)]"
+          >
+            💖
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-3xl font-display text-rose-100 mb-2"
+          >
+            Gathering Our Memories...
+          </motion.h2>
+          <p className="text-rose-200/60 font-serif italic">Creating something beautiful just for you</p>
+        </div>
+      );
+    }
+
     switch (stage) {
       case 0:
         return <HeroStage onStart={handleStart} />;
@@ -71,7 +115,7 @@ function App() {
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={stage}
+          key={isTransitioning ? 'transition' : stage}
           initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}

@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 
 const STAGE_SONGS = {
-    0: 'LoPf32nKYb8', // Hero (Requested)
-    1: 'LoPf32nKYb8', // Login (Keep playing Hero song)
-    2: 'dvWdFMCC1-I', // Quiz (Kadhale Kadhale - Konjam)
+    0: 'kcTV3G-Wi34', // Hero (Updated)
+    1: 'kcTV3G-Wi34', // Login (Updated)
+    2: 'kcTV3G-Wi34', // Quiz (Kadhale Kadhale - Konjam)
     3: 'dvWdFMCC1-I', // Journey (Kadhale Kadhale - Konjam) - Continued vibe
     4: 'U3vO8o58wKQ', // Trap (Maruvarthai)
-    5: 'sWT7S6T0Qzw', // Letter (Nenjukkul Peidhidum)
-    6: 'ZRgA-1za8SA', // Timeline (Updated)
-    7: '7h4FhEePjuU', // Memory (Updated)
+    5: 'bB-HQgHE5Gc', // Letter (Updated)
+    6: '4HZN0XHfw88', // Timeline (Updated)
+    7: 'B6pObfGC6RY', // Memory (Updated)
     8: 'XHi7UpUctWA', // Final (Requested: https://youtu.be/XHi7UpUctWA)
 };
 
@@ -19,15 +19,10 @@ const BackgroundAudio = ({ isPlaying, stage }) => {
     const currentVideoId = useRef(STAGE_SONGS[0]);
 
     useEffect(() => {
-        // Load YouTube IFrame Player API code asynchronously.
-        if (!window.YT) {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
+        // Function to initialize the player
+        const initPlayer = () => {
+            if (playerRef.current) return; // Prevent double initialization
 
-        window.onYouTubeIframeAPIReady = () => {
             playerRef.current = new window.YT.Player('youtube-player', {
                 height: '0',
                 width: '0',
@@ -37,17 +32,51 @@ const BackgroundAudio = ({ isPlaying, stage }) => {
                     'controls': 0,
                     'loop': 1,
                     'playlist': currentVideoId.current,
+                    'origin': window.location.origin
                 },
                 events: {
                     'onReady': onPlayerReady,
+                    'onStateChange': (event) => {
+                        // Handle unstarted state for autoplay
+                        if (event.data === -1 && isPlaying) {
+                            event.target.playVideo();
+                        }
+                    }
                 }
             });
         };
 
-        return () => {
-            // Cleanup if needed
+        if (!window.YT) {
+            // Load YouTube IFrame Player API code asynchronously.
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            window.onYouTubeIframeAPIReady = initPlayer;
+        } else if (window.YT && window.YT.Player) {
+            // If already loaded, initialize immediately
+            initPlayer();
+        }
+
+        // Global interaction listener to bypass autoplay restrictions
+        const handleInteraction = () => {
+            if (playerRef.current && playerRef.current.playVideo && isPlaying) {
+                playerRef.current.playVideo();
+                // We could potentially set a flag here or just let it run
+            }
+            window.removeEventListener('click', handleInteraction);
+            window.removeEventListener('touchstart', handleInteraction);
         };
-    }, []);
+
+        window.addEventListener('click', handleInteraction);
+        window.addEventListener('touchstart', handleInteraction);
+
+        return () => {
+            window.removeEventListener('click', handleInteraction);
+            window.removeEventListener('touchstart', handleInteraction);
+        };
+    }, [isPlaying]);
 
     // Watch for stage changes to switch song
     useEffect(() => {

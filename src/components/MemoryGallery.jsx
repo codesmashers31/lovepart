@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import GlassCard from './GlassCard';
 import ImageCard from './ImageCard';
@@ -23,6 +23,18 @@ import img15 from '../assets/images/15.jpeg';
 import img16 from '../assets/images/16.jpeg';
 import img17 from '../assets/images/17.jpeg';
 import img18 from '../assets/images/18.jpeg';
+import img19 from '../assets/images/19.jpeg';
+import img20 from '../assets/images/20.jpeg';
+import img21 from '../assets/images/21.jpeg';
+import img22 from '../assets/images/22.jpeg';
+import img23 from '../assets/images/23.jpeg';
+import img24 from '../assets/images/24.jpeg';
+import img25 from '../assets/images/25.jpeg';
+import img26 from '../assets/images/26.jpeg';
+import img27 from '../assets/images/27.jpeg';
+import img28 from '../assets/images/28.jpeg';
+
+import ImageTrail from './ImageTrail';
 
 const photos = [
     { id: 1, src: img1, caption: "Where it all began ❤️" },
@@ -43,10 +55,70 @@ const photos = [
     { id: 16, src: img16, caption: "Our 'I Do' moment 🕊️" },
     { id: 17, src: img17, caption: "Blissfully married 🥂" },
     { id: 18, src: img18, caption: "Paradise found with you 🏝️" },
+    { id: 19, src: img19, caption: "Together is my favorite place to be ❤️" },
+    { id: 20, src: img20, caption: "Creating a life we love 🏠" },
+    { id: 21, src: img21, caption: "Every day is a new adventure 🚀" },
+    { id: 22, src: img22, caption: "Soulmates for eternity ∞" },
+    { id: 23, src: img23, caption: "My heart belongs to you ❤️" },
+    { id: 24, src: img24, caption: "Better together, always 🤝" },
+    { id: 25, src: img25, caption: "Love you to the moon and back 🌙" },
+    { id: 26, src: img26, caption: "Our story is my favorite 📖" },
+    { id: 27, src: img27, caption: "Forever and always, yours ❤️" },
+    { id: 28, src: img28, caption: "Life is beautiful with you 🌸" },
 ];
 
 const MemoryGallery = ({ onComplete }) => {
-    const [selectedId, setSelectedId] = useState(null);
+    const [selectedId, setSelectedId] = React.useState(null);
+    const [isLoaded, setIsLoaded] = React.useState(false);
+    const [loadProgress, setLoadProgress] = React.useState(0);
+
+    React.useEffect(() => {
+        let loadedCount = 0;
+        const totalImages = photos.length;
+
+        const preloadImage = (photo) => {
+            const imgTarget = new Image();
+            imgTarget.src = photo.src;
+            imgTarget.onload = () => {
+                loadedCount++;
+                setLoadProgress(Math.floor((loadedCount / totalImages) * 100));
+                if (loadedCount === totalImages) {
+                    setTimeout(() => setIsLoaded(true), 1500); // Small buffer for smoothness
+                }
+            };
+            imgTarget.onerror = () => {
+                loadedCount++;
+                if (loadedCount === totalImages) {
+                    setIsLoaded(true);
+                }
+            };
+        };
+
+        photos.forEach(preloadImage);
+    }, []);
+
+    if (!isLoaded) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-rose-200">
+                <motion.div
+                    animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                    className="text-6xl mb-4"
+                >
+                    💖
+                </motion.div>
+                <h3 className="text-2xl font-display mb-2">Preparing Memories...</h3>
+                <div className="w-64 h-2 bg-rose-900/30 rounded-full overflow-hidden">
+                    <motion.div
+                        className="h-full bg-rose-400"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${loadProgress}%` }}
+                    />
+                </div>
+                <p className="mt-2 text-sm opacity-60 font-serif">{loadProgress}% complete</p>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col items-center min-h-screen px-4 py-8 z-10 relative">
@@ -58,19 +130,15 @@ const MemoryGallery = ({ onComplete }) => {
                 Our Beautiful Moments 📸
             </motion.h2>
 
-            <GlassCard className="w-full max-w-5xl p-6">
-                <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-                    {photos.map((photo, index) => (
-                        <ImageCard
-                            key={photo.id}
-                            src={photo.src}
-                            caption={photo.caption}
-                            alt={photo.caption}
-                            delay={index * 0.1}
-                            onClick={() => setSelectedId(photo.id)}
-                            className="w-full break-inside-avoid mb-4"
-                        />
-                    ))}
+            <GlassCard className="w-full max-w-5xl p-6 overflow-hidden">
+                <div style={{ height: '500px', position: 'relative', overflow: 'hidden' }}>
+                    <ImageTrail
+                        items={photos.map(p => p.src)}
+                        variant="7"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <p className="text-white/30 text-lg font-serif">Move your mouse to reveal memories ✨</p>
+                    </div>
                 </div>
 
                 <div className="flex justify-center mt-8">

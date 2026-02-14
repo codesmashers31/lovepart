@@ -79,24 +79,32 @@ const galleryItems = [
 ];
 
 const JourneyStage = ({ onComplete }) => {
-    const [loading, setLoading] = useState(true);
-    const [progress, setProgress] = useState(0);
+    const [loading, setLoading] = React.useState(true);
+    const [progress, setProgress] = React.useState(0);
 
-    useEffect(() => {
-        // Preload all images - UNIQUE URLs only
+    React.useEffect(() => {
+        // Preload all unique images
         const imageUrls = [...new Set(galleryItems.map(item => item.image))];
-        imageUrls.push(img12);
+        if (!imageUrls.includes(img12)) imageUrls.push(img12);
 
         let loadedCount = 0;
         const totalImages = imageUrls.length;
 
         const handleImageLoad = () => {
             loadedCount++;
-            const newProgress = (loadedCount / totalImages) * 100;
+            const newProgress = Math.floor((loadedCount / totalImages) * 100);
             setProgress(newProgress);
 
             if (loadedCount === totalImages) {
-                setTimeout(() => setLoading(false), 200);
+                // Buffer for visual smoothness
+                setTimeout(() => setLoading(false), 800);
+            }
+        };
+
+        const handleImageError = () => {
+            loadedCount++;
+            if (loadedCount === totalImages) {
+                setLoading(false);
             }
         };
 
@@ -104,24 +112,33 @@ const JourneyStage = ({ onComplete }) => {
             const img = new Image();
             img.src = url;
             img.onload = handleImageLoad;
-            img.onerror = handleImageLoad;
+            img.onerror = handleImageError;
         });
 
-        const timeout = setTimeout(() => setLoading(false), 8000);
+        // Safety timeout
+        const timeout = setTimeout(() => setLoading(false), 10000);
         return () => clearTimeout(timeout);
     }, []);
 
     return (
-        <>
-            <AnimatePresence>
+        <div className="relative min-h-screen w-full">
+            <AnimatePresence mode="wait">
                 {loading && (
                     <motion.div
+                        key="loader"
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="fixed inset-0 z-50 bg-gray-900"
+                        className="fixed inset-0 z-[100] bg-[#0f0518] flex flex-col items-center justify-center p-6 shadow-2xl"
                     >
                         <Loader text="Gathering our memories..." progress={progress} />
+                        <motion.div
+                            animate={{ opacity: [0.4, 1, 0.4] }}
+                            transition={{ repeat: Infinity, duration: 2 }}
+                            className="mt-4 text-rose-300/60 font-serif italic text-sm"
+                        >
+                            Preparing a magical journey just for you...
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -134,7 +151,7 @@ const JourneyStage = ({ onComplete }) => {
             >
                 {/* Faded Background */}
                 <div
-                    className="absolute inset-0 z-0 opacity-20 bg-cover bg-center pointer-events-none blur-[2px]"
+                    className="absolute inset-0 z-0 opacity-10 bg-cover bg-center pointer-events-none blur-[4px]"
                     style={{ backgroundImage: `url(${img12})` }}
                 />
 
@@ -147,22 +164,18 @@ const JourneyStage = ({ onComplete }) => {
                     <h2 className="text-3xl md:text-5xl font-display text-transparent bg-clip-text bg-gradient-to-r from-rose-200 to-pink-200 mb-6 drop-shadow-md">
                         Every Step With You Is Magical ✨
                     </h2>
-                    <div className="space-y-4 text-white/90 text-sm md:text-lg font-handwriting italic bg-black/10 backdrop-blur-sm p-6 rounded-3xl border border-white/5 shadow-2xl">
+                    <div className="space-y-4 text-white/90 text-sm md:text-lg font-handwriting italic bg-black/20 backdrop-blur-md p-6 rounded-3xl border border-white/10 shadow-2xl">
                         <p>"Where you go, I will go; and where you stay, I will stay."</p>
                         <p>"You are the greatest thing that has ever happened to me."</p>
                         <p>"Home is wherever I am with you."</p>
                     </div>
                 </motion.div>
 
-                <div className="absolute top-4 right-4 z-30">
-                    {/* Optional: Add a toggle here if we wanted to switch between views */}
-                </div>
-
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.4 }}
-                    className="w-full h-[70vh] relative z-10 overflow-hidden rounded-xl border border-white/10 bg-black/20 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.3)]"
+                    className="w-full h-[65vh] relative z-10 overflow-hidden rounded-3xl border border-white/10 bg-black/20 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.4)]"
                 >
                     <CircularGallery
                         items={galleryItems}
@@ -175,17 +188,17 @@ const JourneyStage = ({ onComplete }) => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1 }}
+                    transition={{ delay: 0.8 }}
                     className="mt-8 relative z-20"
                 >
                     <MagicButton onClick={onComplete}>Enter Our World ➡️</MagicButton>
                 </motion.div>
 
-                <div className="absolute bottom-4 text-white/30 text-xs z-20 pointer-events-none tracking-widest uppercase font-medium">
+                <div className="absolute bottom-4 text-white/30 text-xs z-20 pointer-events-none tracking-widest uppercase font-medium bg-black/20 px-4 py-1 rounded-full border border-white/5 backdrop-blur-sm">
                     Drag to explore our memories
                 </div>
             </motion.div>
-        </>
+        </div>
     );
 };
 

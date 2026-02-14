@@ -818,16 +818,32 @@ class ImageTrailVariant7 {
         this.visibleImagesTotal = 9;
         this.visibleImagesTotal = Math.min(this.visibleImagesTotal, this.imagesTotal - 1);
 
+        // Cache the container rect to avoid getBoundingClientRect in move handlers
+        this.containerRect = this.container.getBoundingClientRect();
+
+        const handleResize = () => {
+            this.containerRect = this.container.getBoundingClientRect();
+        };
+        window.addEventListener('resize', handleResize);
+
         const handlePointerMove = ev => {
-            const rect = container.getBoundingClientRect();
-            this.mousePos = getLocalPointerPos(ev, rect);
+            const clientX = ev.touches ? ev.touches[0].clientX : ev.clientX;
+            const clientY = ev.touches ? ev.touches[0].clientY : ev.clientY;
+            this.mousePos = {
+                x: clientX - this.containerRect.left,
+                y: clientY - this.containerRect.top
+            };
         };
         container.addEventListener('mousemove', handlePointerMove);
         container.addEventListener('touchmove', handlePointerMove);
 
         const initRender = ev => {
-            const rect = container.getBoundingClientRect();
-            this.mousePos = getLocalPointerPos(ev, rect);
+            const clientX = ev.touches ? ev.touches[0].clientX : ev.clientX;
+            const clientY = ev.touches ? ev.touches[0].clientY : ev.clientY;
+            this.mousePos = {
+                x: clientX - this.containerRect.left,
+                y: clientY - this.containerRect.top
+            };
             this.cacheMousePos = { ...this.mousePos };
             requestAnimationFrame(() => this.render());
             container.removeEventListener('mousemove', initRender);
@@ -860,21 +876,23 @@ class ImageTrailVariant7 {
         gsap.killTweensOf(img.DOM.el);
         const scaleValue = gsap.utils.random(0.5, 1.6);
 
+        // Use gsap.set for immediate position to prevent flicker
+        gsap.set(img.DOM.el, {
+            scale: scaleValue - Math.max(gsap.utils.random(0.2, 0.6), 0),
+            rotationZ: 0,
+            opacity: 1,
+            zIndex: this.zIndexVal,
+            x: this.cacheMousePos.x - img.rect.width / 2,
+            y: this.cacheMousePos.y - img.rect.height / 2
+        });
+
         gsap
             .timeline({
                 onStart: () => this.onImageActivated(),
                 onComplete: () => this.onImageDeactivated()
             })
-            .fromTo(
+            .to(
                 img.DOM.el,
-                {
-                    scale: scaleValue - Math.max(gsap.utils.random(0.2, 0.6), 0),
-                    rotationZ: 0,
-                    opacity: 1,
-                    zIndex: this.zIndexVal,
-                    x: this.cacheMousePos.x - img.rect.width / 2,
-                    y: this.cacheMousePos.y - img.rect.height / 2
-                },
                 {
                     duration: 0.4,
                     ease: 'power3',

@@ -78,8 +78,8 @@ const Background = () => {
 
     return (
         <div className="fixed inset-0 z-[-1] overflow-hidden bg-gradient-to-br from-love-deep via-[#1a0b2e] to-[#2d0b38]">
-            <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-60" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150"></div>
+            <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-60 [will-change:transform]" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
         </div>
     );
 };
