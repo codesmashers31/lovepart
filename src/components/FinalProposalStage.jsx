@@ -6,6 +6,8 @@ import RunningButton from './RunningButton';
 import confetti from 'canvas-confetti';
 import { playFireworks, playSuccess } from '../utils/SoundEffects';
 
+import img24 from '../assets/images/24.jpeg';
+
 const FinalProposalStage = ({ onRestart, userNames }) => {
     const [accepted, setAccepted] = useState(false);
 
@@ -35,18 +37,23 @@ const FinalProposalStage = ({ onRestart, userNames }) => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen px-4 z-10 relative">
+        <div className="flex flex-col items-center justify-center min-h-screen px-4 z-10 relative overflow-hidden">
+            {/* Faded Background */}
+            <div
+                className="absolute inset-0 z-0 opacity-20 bg-cover bg-center pointer-events-none blur-[2px]"
+                style={{ backgroundImage: `url(${img24})` }}
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-rose-900/80 via-transparent to-transparent -z-10" />
 
             {!accepted ? (
-                <GlassCard className="max-w-3xl w-full text-center py-16 px-6 md:px-12 border-rose-300/30">
+                <GlassCard className="max-w-3xl w-full text-center py-16 px-6 md:px-12 border-rose-300/30 relative z-20">
                     <motion.h1
                         className="text-4xl md:text-6xl font-display text-rose-100 mb-6 drop-shadow-lg leading-tight"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
                     >
-                        To My Mutinchanthum & Our Little World 🌍
+                        Our Little World 🌍
                     </motion.h1>
                     <p className="text-rose-200/80 text-lg mb-10 font-handwriting">
                         8 Years of Love. 2 Years of Marriage. <br />

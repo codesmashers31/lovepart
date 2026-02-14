@@ -3,14 +3,22 @@ import { motion } from 'framer-motion';
 import MagicButton from './MagicButton';
 import GlassCard from './GlassCard';
 
+import img1 from '../assets/images/1.jpeg';
+
 const HeroStage = ({ onStart }) => {
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen text-center px-4 relative z-10">
+        <div className="flex flex-col items-center justify-center min-h-screen text-center px-4 relative z-10 overflow-hidden">
+            {/* Faded Background */}
+            <div
+                className="absolute inset-0 z-0 opacity-20 bg-cover bg-center pointer-events-none blur-[2px]"
+                style={{ backgroundImage: `url(${img1})` }}
+            />
+
             <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="mb-8"
+                className="mb-8 relative z-10"
             >
                 <span className="text-6xl md:text-8xl animate-float inline-block">💖</span>
             </motion.div>

@@ -80,13 +80,27 @@ const galleryItems = [
 const JourneyStage = ({ onComplete }) => {
     return (
         <div className="min-h-screen py-10 px-4 z-10 relative flex flex-col items-center overflow-hidden">
-            <motion.h2
+            {/* Faded Background */}
+            <div
+                className="absolute inset-0 z-0 opacity-20 bg-cover bg-center pointer-events-none blur-[2px]"
+                style={{ backgroundImage: `url(${img10})` }}
+            />
+
+            <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-3xl md:text-5xl font-display text-rose-100 mb-6 text-center drop-shadow-md relative z-20 pointer-events-none"
+                className="max-w-4xl text-center relative z-20 mb-8"
             >
-                10 Years of Love & 2 Years of Marriage ❤️
-            </motion.h2>
+                <h2 className="text-2xl md:text-4xl font-display text-rose-100 mb-4 drop-shadow-md">
+                    Our Journey Together 🌍
+                </h2>
+                <p className="text-white/80 text-sm md:text-base font-handwriting leading-relaxed italic">
+                    "We started with nothing — no guarantees, no clarity, just dreams and each other.
+                    There were times I felt lost, times I felt small, but you never let go of my hand. You lifted me, pushed me, and stood beside me through every storm.
+                    Today when I look at our baby boy, I see our love turned into life. I see proof that everything we went through was worth it.
+                    I am who I am today because you chose to stay."
+                </p>
+            </motion.div>
 
             <div className="absolute top-4 right-4 z-30">
                 {/* Optional: Add a toggle here if we wanted to switch between views, but forcing ImageTrail for now */}

@@ -4,6 +4,8 @@ import Envelope from './Envelope';
 import TextType from './TextType';
 import { X, Heart, Sparkles } from 'lucide-react';
 
+import img16 from '../assets/images/16.jpeg';
+
 const LetterStage = ({ onComplete }) => {
     const fullText = "Eight years ago, we chose love.\nTwo years ago, we chose forever.\n\nWe began with nothing but dreams in our hands and hope in our hearts. No guarantees, no safety nets — just you and me against the world.\n\nWhen I was drowning in doubt, you were my shore.\nWhen I was breaking in silence, you were my strength.\nWhen I couldn’t see a future, you became my vision.\n\nToday, I stand stronger, higher, better — not because life was easy, but because you never let me fall alone.\n\nAnd now, when I look at our little boy, I see our love breathing, smiling, living.\nHe is our journey, our proof, our greatest blessing.\n\nHappy 2nd Anniversary, my love.\n\nYou are not just the woman I married…\nYou are the miracle that built my life.";
     const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +15,12 @@ const LetterStage = ({ onComplete }) => {
 
     return (
         <div className="flex flex-col items-center justify-center h-screen px-4 z-10 relative overflow-hidden bg-black/20">
+            {/* Faded Background */}
+            <div
+                className="absolute inset-0 z-0 opacity-20 bg-cover bg-center pointer-events-none blur-[2px]"
+                style={{ backgroundImage: `url(${img16})` }}
+            />
+
             {/* Context Header */}
             <motion.h2
                 initial={{ opacity: 0, y: -20 }}

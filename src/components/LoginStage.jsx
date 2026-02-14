@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import GlassCard from './GlassCard';
 import MagicButton from './MagicButton';
 
+import img1 from '../assets/images/1.jpeg';
+
 const LoginStage = ({ onComplete }) => {
     const [yourName, setYourName] = useState('');
     const [partnerName, setPartnerName] = useState('');
@@ -19,14 +21,21 @@ const LoginStage = ({ onComplete }) => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen px-4 z-10 relative">
+        <div className="flex flex-col items-center justify-center min-h-screen px-4 z-10 relative overflow-hidden">
+            {/* Faded Background */}
+            <div
+                className="absolute inset-0 z-0 opacity-20 bg-cover bg-center pointer-events-none blur-[2px]"
+                style={{ backgroundImage: `url(${img1})` }}
+            />
+
             {!isSubmitted ? (
-                <GlassCard className="max-w-md w-full p-8 md:p-10 text-center">
-                    <h1 className="text-3xl md:text-5xl font-display text-rose-100 mb-6 drop-shadow-md">
-                        8 Years of Love + 2 Years of Marriage ❤️
+                <GlassCard className="max-w-xl w-full p-8 md:p-10 text-center relative z-10">
+                    <h1 className="text-2xl md:text-3xl font-display text-rose-100 mb-6 drop-shadow-md leading-relaxed">
+                        “Eight years of love, two years of marriage… yet my love for you feels newer and stronger every single day.”
                     </h1>
-                    <p className="text-white/70 mb-8 text-lg font-light">
-                        Celebrating our beautiful journey together.
+                    <p className="text-white/80 mb-8 text-sm md:text-base font-light italic leading-loose text-justify px-4">
+                        "When I was at my lowest, when I doubted myself and my future, you were the only one who never doubted me. You believed in me before I believed in myself.
+                        If I am standing at a better stage in life today, it’s not just because of my hard work — it’s because of your love, your strength, and your unwavering support."
                     </p>
 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-6 text-left">
@@ -70,7 +79,7 @@ const LoginStage = ({ onComplete }) => {
                         {yourName} ❤️ {partnerName}
                     </h2>
                     <p className="text-2xl text-white/90 font-light italic">
-                        2 Beautiful Years Down, Forever to Go...
+                        8 Years Love + 2 Years marriage = 10 Beautiful Years Down, Forever to Go...
                     </p>
                 </motion.div>
             )}
